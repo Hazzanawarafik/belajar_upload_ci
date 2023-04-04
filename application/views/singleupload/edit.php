@@ -15,56 +15,28 @@
         <div class="row mt-3">
           <div class="col-sm-12">  
             <h3>Single Upload</h3>
-            <h4 class="text-danger"><?= $this->session->flashdata('status'); ?></h4>
             <div class="card">
               <div class="card-header">
-                Upload Image
+               Edit Upload Image
               </div>
               <div class="card-body">
-                <?= form_open_multipart('upload/file/add'); ?>
+                <?= form_open_multipart('upload/file/edit'); ?>
                   <div class="form-group row">
                     <label for="image" class="col-sm-2 col-form-label">Gambar</label>
                     <div class="col-sm-8">
-                      <input type="hidden" name="id" value="">
+                      <input type="hidden" name="id" value="<?= $byId['id']; ?>">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="image" name="image">
                         <label class="custom-file-label" for="image">Choose file</label>
                       </div>
+                      <hr>
+                      <img src="<?= base_url('uploads/image/'.$byId['image']); ?>" class="img-thumbnail" alt="<?= $byId['title']; ?>">
                     </div>
                     <div class="col-sm-2">
                       <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                   </div>
                   <?= form_close(); ?>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-12 mt-2">  
-            <div class="card">
-              <div class="card-header">
-                Hasil Upload
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <?php if($images): ?>
-                  <?php foreach($images as $value): ?>
-                    <div class="col-sm-4 p-2">
-                      <div class="card">
-                        <div class="card-body">
-                          <img src="<?= base_url('uploads/image/'.$value['image']); ?>" class="img-thumbnail" alt="<?= $value['title']; ?>">
-                        </div>
-                        <div class="card-footer">
-                          <a href="<?= base_url('upload/edit/').$value['id']; ?>" class="btn btn-warning">Edit</a>
-                        </div>
-                      </div>
-                    </div>
-                  <?php endforeach ?>
-                  <?php else: ?>
-                    <div class="col-sm-4">
-                      <h3 class="text-danger">Data Masih Kosong</h3>
-                    </div>
-                  <?php endif;  ?>
-                </div>
               </div>
             </div>
           </div>

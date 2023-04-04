@@ -19,7 +19,7 @@ class Upload extends CI_Controller {
         
     }
 
-    public function file(){
+    public function file($type){
         // untuk mengetest data sesuai namenya atau tidak
         // $upload = $_FILES['image']['name'];
         // var_dump($upload);
@@ -52,12 +52,19 @@ class Upload extends CI_Controller {
                 $this->load->library('image_lib',$config);
                 $this->image_lib->resize();
                 $data = [
+                    'id' => $this->input->post('id'),
                     'image' => $imageName,
                     'title' => $imageName,
                     'date_created' => time()
                 ];
+                if($type == 'edit'){
+                    $oldImage =  $this->upload_model->getDataById($data['id']);
+                    // var_dump($oldImage);
+                    // die;
+                    unlink('./uploads/image/'.$oldImage['image']);
+                }
 
-                if($this->upload_model->upload($data)>0){
+                if($this->upload_model->upload($data,$type)>0){
                     $this->session->set_flashdata('status','Data berhasil disimpan');                    
                     redirect('upload','refresh');                   
                 }else{
@@ -80,6 +87,12 @@ class Upload extends CI_Controller {
         }
     }
 
+
+    public function edit($id){
+        $data['title'] = 'Edit gambar';
+        $data['byId'] = $this->upload_model->getDataById($id);
+        $this->load->view('singleupload/edit',$data);
+    }
 }
 
 /* End of file Upload.php */
