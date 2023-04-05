@@ -93,6 +93,19 @@ class Upload extends CI_Controller {
         $data['byId'] = $this->upload_model->getDataById($id);
         $this->load->view('singleupload/edit',$data);
     }
+
+    public function delete($id){
+        $oldImage = $this->upload_model->getDataById($id);
+        unlink('./uploads/image/'.$oldImage['image']);
+        if($this->upload_model->delete($id) > 0){
+            $this->session->set_flashdata('status','Data berhasil di hapus');
+            redirect('upload','refresh');
+        }
+        else {
+            $this->session->set_flashdata('status','server gangguan,silahkan ulangi kembali');
+            redirect('upload');
+        }
+    }
 }
 
 /* End of file Upload.php */
