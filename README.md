@@ -1,4 +1,5 @@
 # belajar_upload_ci
 
-
-#2. Tutorial lengkap Upload Image Codeigniter ke database - Single Upload (Resize)
+ubah nama folder menjadi belajar_upload
+beri semua akses folder 
+-> sudo chmod 777 -R belajar_upload
